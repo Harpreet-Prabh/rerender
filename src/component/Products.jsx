@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Product.css";
 
 const initialProducts = [
@@ -85,11 +85,55 @@ const initialProducts = [
 ];
 
 export default function Products() {
-  const [filteredProducts] = useState(initialProducts);
+  const [filteredProducts, setFilteredProducts] = useState(initialProducts);
+  const [showOnlyInStock, setShowOnlyInStock] = useState("all");
+  const [searchValue, setSearchValue] = useState("");
+
+  useEffect(() => {
+    const filteredProducts = initialProducts.filter((product) => {
+      let userInput = searchValue.toLowerCase();
+      let productName = product.name.toLowerCase();
+      if (showOnlyInStock == "inStock") {
+        return product.inStock && productName.includes(userInput);
+      } else if (showOnlyInStock === "outOfStock") {
+        return !product.inStock && productName.includes(userInput);
+      }
+      return productName.includes(userInput);
+    });
+    setFilteredProducts(filteredProducts);
+  }, [showOnlyInStock, searchValue]);
+
+  function handleSearch(e) {
+    setSearchValue(e.target.value);
+    console.log(searchValue);
+  }
+
+  function handleStock(e) {
+    setShowOnlyInStock(e.target.value);
+    console.log(showOnlyInStock);
+  }
 
   return (
     <div className="products-container">
+      <div className="filters">
+        <label htmlFor="search">Search</label>
+        <input
+          id="search"
+          type="text"
+          value={searchValue}
+          onChange={handleSearch}
+          placeholder="Search by name..."
+        />
+
+        <label htmlFor="stockCheck">Stock Filter</label>
+        <select id="stockCheck" value={showOnlyInStock} onChange={handleStock}>
+          <option value="all">ALL</option>
+          <option value="inStock">In Stock Only</option>
+          <option value="outOfStock"> Out of Stock Only</option>
+        </select>
+      </div>
       <h2 className="title">Product List</h2>
+
       <div className="table-wrapper">
         <table className="product-table">
           <thead>

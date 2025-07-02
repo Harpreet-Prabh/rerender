@@ -16,6 +16,13 @@
   color: #333;
 }
 
+
+.filters {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
 .table-wrapper {
   overflow-x: auto;
 }
