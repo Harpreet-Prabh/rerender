@@ -5,6 +5,8 @@ import "./App.css";
 import CompA from "./component/CompA";
 import CompB from "./component/CompB";
 import Products from "./component/Products";
+import ThemeProvider from "./themeApp/ThemeProvider";
+import Main from "./themeApp/Main";
 function App() {
   // const [count, setCount] = useState(0);
   // const [name, setName] = useState("");
@@ -41,7 +43,10 @@ function App() {
         <CompA name={"earth"} count={count}></CompA>
         <CompB name={name}></CompB> */}
 
-        <Products />
+        {/* <Products /> */}
+        <ThemeProvider>
+          <Main></Main>
+        </ThemeProvider>
       </div>
     </>
   );
