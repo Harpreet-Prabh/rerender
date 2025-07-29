@@ -7,6 +7,8 @@ import CompB from "./component/CompB";
 import Products from "./component/Products";
 import ThemeProvider from "./themeApp/ThemeProvider";
 import Main from "./themeApp/Main";
+import AppAuth from "./AuthSystem/AppAuth";
+import AuthProvider from "./AuthSystem/AuthProvider";
 function App() {
   // const [count, setCount] = useState(0);
   // const [name, setName] = useState("");
@@ -44,9 +46,12 @@ function App() {
         <CompB name={name}></CompB> */}
 
         {/* <Products /> */}
-        <ThemeProvider>
+        {/* <ThemeProvider>
           <Main></Main>
-        </ThemeProvider>
+        </ThemeProvider> */}
+        <AuthProvider>
+          <AppAuth />
+        </AuthProvider>
       </div>
     </>
   );
