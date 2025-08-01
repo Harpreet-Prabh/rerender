@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+
 import CompA from "./component/CompA";
 import CompB from "./component/CompB";
 import Products from "./component/Products";
@@ -9,6 +7,9 @@ import ThemeProvider from "./themeApp/ThemeProvider";
 import Main from "./themeApp/Main";
 import AppAuth from "./AuthSystem/AppAuth";
 import AuthProvider from "./AuthSystem/AuthProvider";
+import ProductList from "./shoppingCart/ProductList";
+import CartProvider from "./shoppingCart/CartProvider";
+import CartIcon from "./shoppingCart/CartIcon";
 function App() {
   // const [count, setCount] = useState(0);
   // const [name, setName] = useState("");
@@ -49,9 +50,13 @@ function App() {
         {/* <ThemeProvider>
           <Main></Main>
         </ThemeProvider> */}
-        <AuthProvider>
+        {/* <AuthProvider>
           <AppAuth />
-        </AuthProvider>
+        </AuthProvider> */}
+        <CartProvider>
+          <CartIcon />
+          <ProductList></ProductList>
+        </CartProvider>
       </div>
     </>
   );
