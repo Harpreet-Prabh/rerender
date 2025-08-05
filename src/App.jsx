@@ -10,7 +10,9 @@ import AuthProvider from "./AuthSystem/AuthProvider";
 import ProductList from "./shoppingCart/ProductList";
 import CartProvider from "./shoppingCart/CartProvider";
 import CartIcon from "./shoppingCart/CartIcon";
+import CartSummary from "./shoppingCart/CartSummary";
 function App() {
+  const [toggleCart, setToggleCart] = useState(false);
   // const [count, setCount] = useState(0);
   // const [name, setName] = useState("");
   // console.log("parent console");
@@ -54,7 +56,16 @@ function App() {
           <AppAuth />
         </AuthProvider> */}
         <CartProvider>
-          <CartIcon />
+          <div
+            onClick={() => {
+              setToggleCart((previousValue) => !previousValue);
+            }}
+          >
+            <CartIcon />
+          </div>
+
+          {toggleCart && <CartSummary />}
+
           <ProductList></ProductList>
         </CartProvider>
       </div>
