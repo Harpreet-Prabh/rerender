@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useCartContext from "./useCartContext";
+import { Trash } from "lucide-react";
 
 function sumArray(arr) {
   return arr.reduce(
@@ -8,7 +9,7 @@ function sumArray(arr) {
   );
 }
 function CartSummary() {
-  const { cartItems } = useCartContext();
+  const { cartItems, minusQty, addQty, deleteItem } = useCartContext();
   const [grandTotal, setGrandTotal] = useState();
   useEffect(() => {
     let total = cartItems.map((item) => {
@@ -37,21 +38,41 @@ function CartSummary() {
         <tbody>
           {cartItems.map((product, index) => {
             return (
-              <tr>
-                <td key={index} className="">
-                  {product.product.name}
-                </td>
+              <tr key={index}>
+                <td className="">{product.product.name}</td>
                 <td className="">{product.product.price}</td>
                 <td className="flex gap-3 items-center py-2">
-                  <button className="h-6  flex justify-center items-center w-6 rounded-full p-2 bg-red-200">
-                    -
+                  <button
+                    onClick={() => {
+                      console.log("click on minus");
+                      minusQty(product.product.id);
+                    }}
+                    className="h-6  flex justify-center items-center w-6 rounded-full p-2 bg-red-200"
+                  >
+                    <span>-</span>
                   </button>
+
                   {product.qty}
-                  <button className=" h-6  flex justify-center items-center w-6 rounded-full p-2 bg-red-200">
+
+                  <button
+                    onClick={() => {
+                      addQty(product.product.id);
+                    }}
+                    className=" h-6  flex justify-center items-center w-6 rounded-full p-2 bg-red-200"
+                  >
                     <span>+</span>
                   </button>
                 </td>
                 <td>{(product.product.price * product.qty)?.toFixed(2)}</td>
+                <td>
+                  <button
+                    onclick={() => {
+                      deleteItem(product.product.id);
+                    }}
+                  >
+                    <Trash color="#e81111" />
+                  </button>
+                </td>
               </tr>
             );
           })}
