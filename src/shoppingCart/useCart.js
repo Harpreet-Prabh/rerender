@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 
 function updatedProducts(_cartItems, _productId, _action = "+") {
-  const updatedItems = _cartItems.map((item) => {
+  if (_action == "delete") {
+    return _cartItems.filter((item) => item.product.id !== _productId);
+  }
+
+  return _cartItems.map((item) => {
     if (_productId == item.product.id) {
       return {
         ...item,
@@ -11,19 +15,17 @@ function updatedProducts(_cartItems, _productId, _action = "+") {
       return item;
     }
   });
-  return updatedItems;
 }
 function useCart() {
-  const [cartItems, setCartItems] = useState([]);
+  let cartData = localStorage.getItem("cartItems");
+
+  cartData = cartData ? JSON.parse(cartData) : [];
+  const [cartItems, setCartItems] = useState(cartData);
 
   function handleAddToCart(product) {
-    console.log(cartItems);
-
     const availableProduct = cartItems.find((item) => {
       return item.product.id == product.id;
     });
-
-    console.log("this is availableProduct", availableProduct);
 
     if (availableProduct) {
       const updatedItems = updatedProducts(cartItems, product.id, "+");
@@ -43,7 +45,10 @@ function useCart() {
     setCartItems(updatedItems);
   }
 
-  function deleteItem(id) {}
+  function deleteItem(id) {
+    const updatedItems = updatedProducts(cartItems, id, "delete");
+    setCartItems(updatedItems);
+  }
   return { cartItems, handleAddToCart, addQty, minusQty, deleteItem };
 }
 

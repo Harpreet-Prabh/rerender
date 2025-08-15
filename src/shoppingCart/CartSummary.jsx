@@ -17,6 +17,7 @@ function CartSummary() {
     });
     console.log(total);
     setGrandTotal(sumArray(total));
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
   }, [cartItems]);
 
   return (
@@ -66,7 +67,7 @@ function CartSummary() {
                 <td>{(product.product.price * product.qty)?.toFixed(2)}</td>
                 <td>
                   <button
-                    onclick={() => {
+                    onClick={() => {
                       deleteItem(product.product.id);
                     }}
                   >

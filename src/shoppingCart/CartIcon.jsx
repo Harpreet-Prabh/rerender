@@ -4,8 +4,8 @@ function CartIcon() {
   const { cartItems } = useCartContext();
   return (
     <div>
-      <div class="flex items-center justify-center">
-        <h1 class="text-xl font-bold">welcome to shopping</h1>
+      <div className="flex items-center justify-center">
+        <h1 className="text-xl font-bold">welcome to shopping</h1>
       </div>
       <div className="fixed top-4 right-4 md:top-6 md:right-8 z-50">
         <div className="relative inline-block">
